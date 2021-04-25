@@ -27,7 +27,7 @@ http.createServer(function (req, res)
 		// when complete POST data is received
 		req.on('end', () => {
 			pdata = qs.parse(pdata);
-			res.write ("The name is: "+ pdata['the_name']);
+			res.write ("The select is: "+ pdata['select']);
 			res.end();
 		});
 		// on means when we have the data
