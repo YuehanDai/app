@@ -3,6 +3,7 @@ const uri = "mongodb+srv://Yuri:IfMHnDqi7h8eFnzr@cluster0.p5voe.mongodb.net/text
 var http = require('http');
 var fs = require('fs');
 var qs = require('querystring');
+var port = process.env.PORT || 3000;
 	
 http.createServer(function (req, res) 
   {	  
@@ -67,4 +68,4 @@ http.createServer(function (req, res)
 		  res.write ("Unknown page request");
 		  res.end();
 	  } 
-}).listen(8080);
+}).listen(port);
