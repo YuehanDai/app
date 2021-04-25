@@ -1,11 +1,43 @@
 var http = require('http');
-//var port = 8080;
-var port = process.env.PORT || 3000;
+var fs = require('fs');
+var qs = require('querystring');
+	
+http.createServer(function (req, res) 
+  {
+	  
+	  if (req.url == "/")
+	  {
+		  file = 'formpage.html';
+		  fs.readFile(file, function(err, txt) {
+    	  res.writeHead(200, {'Content-Type': 'text/html'});
+		  res.write("This is the home page<br>");
+          res.write(txt);
+          res.end();
+		  });
+	  }
+	  else if (req.url == "/process")
+	  {
+		 res.writeHead(200, {'Content-Type':'text/html'});
+		 res.write ("Process the form<br>");
+		 pdata = "";
+		 req.on('data', data => {
+           pdata += data.toString();
+         });
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write("<h2>Node js demo</h2>")
-  res.write("Hello World</br>");
-  res.write("</br>");
-  res.end();
-}).listen(port);
+		// when complete POST data is received
+		req.on('end', () => {
+			pdata = qs.parse(pdata);
+			res.write ("The name is: "+ pdata['the_name']);
+			res.end();
+		});
+		// on means when we have the data
+	  }
+	  else 
+	  {
+		  res.writeHead(200, {'Content-Type':'text/html'});
+		  res.write ("Unknown page request");
+		  res.end();
+	  }
+  
+
+});
