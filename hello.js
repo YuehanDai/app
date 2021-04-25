@@ -7,7 +7,7 @@ http.createServer(function (req, res)
 	  
 	  if (req.url == "/")
 	  {
-		  file = 'formpage.html';
+		  file = 'form.html';
 		  fs.readFile(file, function(err, txt) {
     	  res.writeHead(200, {'Content-Type': 'text/html'});
 		  res.write("This is the home page<br>");
